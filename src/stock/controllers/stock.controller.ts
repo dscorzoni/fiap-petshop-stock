@@ -16,6 +16,7 @@ import { z } from 'zod';
 import { ZodValidationPipe } from 'src/shared/pipe/zod-validation.pipe';
 // import { AuthGuard } from 'src/shared/guards/auth.guard';
 import { LoggingInterceptor } from 'src/shared/interceptors/login.interceptor';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 // Schemas
 const createStockSchema = z.object({
@@ -32,6 +33,7 @@ type CreateStock = z.infer<typeof createStockSchema>;
 type UpdateStock = z.infer<typeof updateStockSchema>;
 
 // URLs and Controllers
+@ApiTags('stock')
 @UseInterceptors(LoggingInterceptor)
 @Controller('stock')
 export class StockController {
@@ -51,6 +53,7 @@ export class StockController {
     return this.stockService.getStock(productId);
   }
 
+  @ApiBearerAuth()
   @UsePipes(new ZodValidationPipe(createStockSchema))
   @Post()
   async createStock(@Body() { name, quantity, relationId }: CreateStock) {
