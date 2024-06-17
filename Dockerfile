@@ -6,14 +6,14 @@ RUN npm install
 
 COPY . .
 
-ARG MONGO_URI
-ARG JWT_SECRET
+# ARG MONGO_URI
+# ARG JWT_SECRET
 
-ENV MONGO_URI=$MONGO_URI
-ENV JWT_SECRET=$MONGO_URI
+# ENV MONGO_URI=$MONGO_URI
+# ENV JWT_SECRET=$MONGO_URI
 
-RUN echo "MONGO_URI=${MONGO_URI}" > .env
-RUN echo "JWT_SECRET=${JWT_SECRET}" > .env
+# RUN echo "MONGO_URI=${MONGO_URI}" > .env
+# RUN echo "JWT_SECRET=${JWT_SECRET}" > .env
 
 RUN npm install -g pnpm
 RUN pnpm build
